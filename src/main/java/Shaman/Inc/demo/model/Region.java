@@ -14,8 +14,34 @@ public class Region {
     private Long id;
     @Column(name = "reg_nombre")
     private String nombre;
-    @Column(name = "reg_casos")
-    private int casos;
+    @Column(name = "reg_casos_totales")
+    private int casos_totales;
+
+    @Column(name= "reg_casos_nuevos")
+    private int casos_nuevos;
+
+    @Column(name= "reg_fallecidos")
+    private int fallecidos;
+
+    public int getCasos_nuevos() {
+        return casos_nuevos;
+    }
+
+    public void setCasos_nuevos(int casos_nuevos) {
+        this.casos_nuevos = casos_nuevos;
+    }
+
+    public int getFallecidos() {
+        return fallecidos;
+    }
+
+    public void setFallecidos(int fallecidos) {
+        this.fallecidos = fallecidos;
+    }
+
+    public Region() {
+    }
+
     @Column(name = "reg_color")
     private String color;
     @Column(name = "reg_latitud")
@@ -47,12 +73,12 @@ public class Region {
         this.longitud = longitud;
     }
 
-    public int getCasos() {
-        return casos;
+    public int getCasos_totales() {
+        return casos_totales;
     }
 
-    public void setCasos(int casos) {
-        this.casos = casos;
+    public void setCasos_totales(int casos) {
+        this.casos_totales = casos;
     }
 
     public String getNombre() {
@@ -73,19 +99,19 @@ public class Region {
 
     public void color(){
 
-        if(this.casos<51){
+        if(this.casos_totales<51){
             setColor("ffeeee");
-        }else if(this.casos<101){
+        }else if(this.casos_totales<101){
             setColor("ffd6d6");
 
-        }else if(this.casos<501){
+        }else if(this.casos_totales<501){
             setColor("ffb4b4");
 
-        }else if(this.casos<1001){
+        }else if(this.casos_totales<1001){
             setColor("fd8f8f");
-        }else if(this.casos<5001){
+        }else if(this.casos_totales<5001){
             setColor("fc6b6b");
-        }else if(this.casos<10001){
+        }else if(this.casos_totales<10001){
             setColor("fa3d3d");
         }else{
             setColor("ff0000");

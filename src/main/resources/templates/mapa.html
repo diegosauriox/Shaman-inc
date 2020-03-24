@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="ISO-8859-1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
           integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
@@ -30,9 +30,33 @@
 
 
     </div>
+<script th:inline="javascript" charset="ISO-8859-1">
+         var data = [[${regiones}]];
+</script>
+
 <script >
 
+function style(region) {
+    return {
+        fillColor: getColor(region.casos_totales),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
 
+function getColor(d) {
+return d > 1000 ? '#800026' :
+d > 500  ? '#BD0026' :
+d > 200  ? '#E31A1C' :
+d > 100  ? '#FC4E2A' :
+d > 50   ? '#FD8D3C' :
+d > 20   ? '#FEB24C' :
+d > 10   ? '#FED976' :
+'#FFEDA0';
+}
 
 var map = L.map("mapa").setView([-33.452251, -70.665085], 5);
 
@@ -64,7 +88,7 @@ var regiones={
 ]
 };
 
-L.geoJson(regiones).addTo(map);
+L.geoJson(regiones,{style: style,}).addTo(map);
 
 
 </script>
