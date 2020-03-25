@@ -24,11 +24,11 @@ public class mapaController {
     @Autowired
     private RegionDao regionDao;
 
-    @RequestMapping(value ="")
+    @RequestMapping(value = "")
     public String listar(Model modelo) throws IOException {
 
         webScrapping();
-        modelo.addAttribute("regiones",regionDao.findAll());
+        modelo.addAttribute("regiones", regionDao.findAll());
 
         return "mapa";
     }
@@ -41,13 +41,24 @@ public class mapaController {
         for (int i = 3; i < filas.size(); i++) { //first row is the col names so skip it.
             Element fila = filas.get(i);
             Elements columna = fila.select("td");
-            Region act = regionDao.findByNombre(columna.get(0).text());
-            act.setCasos_nuevos(Integer.parseInt(columna.get(1).text()));
-            act.setCasos_totales(Integer.parseInt(columna.get(2).text()));
-            act.setFallecidos(Integer.parseInt(columna.get(3).text()));
+            Region act = regionDao.findByNombre(quitarPunto(columna.get(0).text()));
+            act.setCasos_nuevos(Integer.parseInt(quitarPunto(columna.get(1).text())));
+            act.setCasos_totales(Integer.parseInt(quitarPunto(columna.get(2).text())));
+            act.setFallecidos(Integer.parseInt(quitarPunto(columna.get(4).text())));
             regionDao.save(act);
         }
     }
-
+    public String quitarPunto(String valor){
+        String [] partes=valor.split("\\.");
+        String valorFinal="";
+        if(partes.length>0){
+        for(int i=0;i<partes.length;i++){
+            valorFinal=valorFinal+partes[i];
+        }
+            return valorFinal;
+        }else {
+            return valor;
+        }
+    }
 
 }

@@ -18,6 +18,7 @@ public class WebScrapping {
             Element fila = filas.get(i);
             Elements columna = fila.select("td");
             System.out.println(columna.get(0).text());
+
         }
             return tabla;
         }
